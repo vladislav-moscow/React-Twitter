@@ -1,0 +1,27 @@
+.btn-component {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 320px;
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 22px;
+  cursor: pointer;
+  background-color: #fff;
+  margin-bottom: 1rem;
+
+  
+  &-min {
+      margin-left: 0.3rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      font-weight: bold;
+      font-size: 15px;
+  }
+
+  &__icon {
+      height: 20px;
+  }
+}
