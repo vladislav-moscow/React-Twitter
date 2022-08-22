@@ -1,25 +1,26 @@
 import './Sign.scss';
 import Button from '../../components/Button';
 import { useState } from 'react';
+import ModalForm from '../../Modules/ModalForm';
+import ModalFormSecond from '../../Modules/ModalFormSecond';
+import ModalFormThird from '../../Modules/ModalFormThird';
+import FooterLink from '../../components/FooterLink';
+import { Link } from 'react-router-dom';
 
 function Sign() {
-  const titleElem = ['О нас', 'Справочный центр', 'Условия предоставления услуг', 'Политика конфиденциальности',
-    'Политика в отношении файлов cookie', 'Специальные возможности', 'Информация о рекламе', 'Блог', 'Статус',
-    'Работа', 'Ресурсы бренда', 'Реклама', 'Маркетинг', 'Твиттер для бизнеса', 'Разработчикам', 'Каталог', 'Настройки'
-  ];
-
-  const listItem = titleElem.map((item) => {
-    return <a href="!#" className="sign__footer-link"> { item } </a>
-  })
-
   const [open, setOpen] = useState(false);
+  const [activeModal, setActiveModal] = useState(1);
+  
   const showModal = () => {
-    console.log('1');
     setOpen(true)
   }
   const closeModal = () => {
     setOpen(false)
   }
+  const handleClickNextStep = () => {
+    setActiveModal((prev) => ++prev)
+  }
+
   return (
     <div className="sign">
       <div className='sign__container'>
@@ -68,16 +69,19 @@ function Sign() {
               <div className= {` modal bounceIn ${open? 'modal--show' : ''}`}  >
                 <div className="modal__close" onClick={closeModal}>+</div>
                 <div className='modal__form'>
-                  <h3 className="fio-form__step">Шаг  из 5</h3>
+                  <h3 className="fio-form__step">Шаг {activeModal >=3 ? '3' : activeModal}  из 3</h3>
+                  {activeModal === 1 && <ModalForm/>}
+                  {activeModal === 2 && <ModalFormSecond/>}
+                  {activeModal === 3 && <ModalFormThird/>}
 
-
-                  <button className='fio-Form-btn btn'>Далее</button>
+                  <Button text={activeModal >= 3 ? 'Зарегистрироваться' : 'Далее'} className={'fio-Form-btn btn'} onClick={activeModal === 3 ? closeModal : handleClickNextStep} />
+                  
                 </div>
               </div>
               <div className='sign__privacy_wrapp'>
                 Регистрируясь, вы соглашаетесь с
                 <a href="!#" className='sign__privacy-link'>Условиями предоставления услуг</a>
-                и
+                <span>и</span> 
                 <a href="!#" className='sign__privacy-link'>Политикой конфиденциальности</a>
                 , а также с
                 <a href="!#" className='sign__privacy-link'>Политикой использования файлов cookie</a>
@@ -85,7 +89,7 @@ function Sign() {
               </div>
               <div className='sign__registr'>
                 <h3 className='sign__registr-title'>Уже зарегистрированы?</h3>
-                <button className='sign__registr-btn btn'>Войти</button>
+                <Link className='sign__registr-btn btn' to="/home" >Войти</Link>
               </div>
             </div>
           </div>
@@ -93,8 +97,7 @@ function Sign() {
       </div>
       <footer className='sign__footer'>
         <nav className='sign__footer-nav'>
-          
-          {listItem}
+          <FooterLink/>
           <span className='sign__footer-link'>© Twitter, Inc., 2022.</span>
         </nav>
       </footer>

@@ -1,8 +1,8 @@
-import Sign from './pages/Sign'
+import MainRoutes from './MainRoutes';
 function App() {
   return (
     <div className="App">
-      <Sign/>
+      <MainRoutes/>
     </div>
   );
 }

@@ -1,0 +1,23 @@
+.home {
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  position: relative;
+  &__nav {
+    position: sticky;
+    top: 0;
+    height: 600px;
+    width: 300px;
+    background-color: blue;
+  }
+  &__posts {
+    height: 1800px;
+    width: 500px;
+    background-color: red;
+  }
+  &__aside {
+    height: 600px;
+    width: 300px;
+    background-color: rgb(209, 19, 180);
+  }
+}
