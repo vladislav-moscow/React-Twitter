@@ -7,7 +7,7 @@ function DaySelect() {
     day.push(i)
   }
 
-  const dayItem = day.map((item) =>  <option value={ "item" }>{ item }</option> )
+  const dayItem = day.map((item, index) =>  <option value={ index + 1 }>{ item }</option> )
   return (
     dayItem
   );
