@@ -1,0 +1,17 @@
+.profile {
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  &__post {
+    height: 1800px;
+    width: 500px;
+    background-color: red;
+}
+
+&__aside {
+    height: 600px;
+    width: 300px;
+    background-color: green;
+}
+}

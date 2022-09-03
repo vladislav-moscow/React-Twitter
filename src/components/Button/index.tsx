@@ -1,5 +1,15 @@
+import React from 'react';
 import './Button.scss';
-function Button({text, icon, className, onClick, id}) {
+
+interface Props {
+  text: string;
+  className?: string;
+  icon?: React.ReactNode;
+  onClick?: (event:any) => any;
+  id?: string;
+}
+
+function Button({text, icon, className, onClick, id}: Props) {
   return (
     <button className={`btn-component ${className}`} onClick={onClick} id={id}>
       {icon}

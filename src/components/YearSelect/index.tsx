@@ -1,3 +1,4 @@
+import React from 'react';
 import './YearSelect.scss';
 
 function YearSelect() {
@@ -7,9 +8,11 @@ function YearSelect() {
     year.push(i)
   }
 
-  const yearItem = year.map((item,index) =>  <option value={ index + 1 }>{ item }</option> )
+  const yearItem = year.map((item,index) =>  <option key={`${index}_${item}`} value={ index + 1 }>{ item }</option> )
   return (
-    yearItem
+    <>
+    {yearItem}
+    </>
   );
 }
 

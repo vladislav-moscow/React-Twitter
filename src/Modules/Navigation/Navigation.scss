@@ -1,0 +1,23 @@
+.modules-navigation {
+  
+    position: sticky;
+    top: 0;
+    height: 600px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #000;
+    border-right: 1px solid grey;
+
+    &__svg {
+        height: 45px;
+        fill: blue;
+
+    }
+
+    &__btn-twit {
+        width: 100%;
+    }
+  
+}

@@ -6,12 +6,20 @@
   flex-shrink: 1;
 
   &-title {
-    font-size: 30px;
+    font-size: 36px;
     margin-top: 30px;
     margin-bottom: 20px;
     line-height: 36px;
-    font-weight: 700;
+    font-weight: 900;
     color: rgb(231, 233, 234);
+  }
+
+  &-wrapper {
+    position: relative;
+  
+    input {
+      width: 100%;
+    }
   }
 
   &-form {
@@ -35,6 +43,13 @@
       border-color: rgb(29, 155, 240);
       color:rgb(29, 155, 240);
       box-shadow: 1px 1px 0 0 rgb(29, 155, 240) ;
+    }
+
+    &-clear {
+      position: absolute;
+      top:16px;
+      right: 10px;
+      cursor: pointer;
     }
   }
 

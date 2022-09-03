@@ -1,23 +1,66 @@
 .home {
   display: flex;
   justify-content: center;
-  background-color: #fff;
   position: relative;
-  &__nav {
-    position: sticky;
-    top: 0;
-    height: 600px;
-    width: 300px;
-    background-color: blue;
-  }
+
   &__posts {
-    height: 1800px;
-    width: 500px;
-    background-color: red;
+      height: 1800px;
+      width: 500px;
+      background-color: red;
+
+      .status {
+        display: grid; 
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        gap: 0px;
+        height: 10%;
+        
+        &-title {
+            background-color: #9DDFD8; 
+            grid-row-start: 1;
+            grid-column-start: 1;
+            grid-row-end: 2;
+            grid-column-end: 6;
+        }
+
+        &__img-wrapper {
+            background-color: #79595F; 
+   grid-row-start: 2;
+   grid-column-start: 1;
+
+   grid-row-end: 4;
+   grid-column-end: 2;
+        }
+
+        &__input {
+            background-color: #DBD559; 
+   grid-row-start: 2;
+   grid-column-start: 2;
+
+   grid-row-end: 4;
+   grid-column-end: 6;
+        }
+
+        &__icon {
+            background-color: #76E986; 
+            grid-row-start: 4;
+            grid-column-start: 1;
+         
+            grid-row-end: 5;
+            grid-column-end: 6;
+        }
+     }
+       
+     
+     
   }
+
   &__aside {
-    height: 600px;
-    width: 300px;
-    background-color: rgb(209, 19, 180);
+      height: 600px;
+      width: 300px;
+      background-color: green;
   }
-}
+
+  }
+
+  

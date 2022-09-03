@@ -6,21 +6,50 @@ import ModalFormSecond from '../../Modules/ModalFormSecond';
 import ModalFormThird from '../../Modules/ModalFormThird';
 import FooterLink from '../../components/FooterLink';
 import { Link } from 'react-router-dom';
+import React from 'react';
+import ModalFormGoogle from '../../Modules/ModalFormGoogle';
+import Modal from '../../components/Modal';
+import ModalFormApple from '../../Modules/ModalFormApple';
+
+interface FormsValue {
+  name?: string;
+  phone?: string;
+  month?: string;
+  login?: string;
+}
 
 function Sign() {
-  const [open, setOpen] = useState(false);
-  const [activeModal, setActiveModal] = useState(1);
-  
-  const showModal = () => {
-    setOpen(true)
-  }
-  const closeModal = () => {
-    setOpen(false)
-  }
-  const handleClickNextStep = () => {
-    setActiveModal((prev) => ++prev)
+  const [openSign, setOpenSign] = useState<boolean>(false);
+  const [openGoogle, setOpenGoogle] = useState<boolean>(false);
+  const [openApple, setOpenApple] = useState<boolean>(false);
+  const [activeModal, setActiveModal] = useState<number>(1);
+  const [formsValue, setFormsValue] = useState<FormsValue>({});
+
+  const handleFormsValue = (value: FormsValue) => {
+    setFormsValue(prev => {
+      return {
+        ...prev,
+        ...value
+      }
+    })
   }
 
+  const toggleModalGoogle = () => {
+    setOpenGoogle(prev => !prev)
+  }
+   const toggleModalApple = () => {
+    setOpenApple(prev => !prev)
+  } 
+  const toggleModalSign = () => {
+    setOpenSign(prev => !prev)
+  }
+  
+  const handleClickNextStep = () => {
+    setActiveModal((prev: number) => ++prev)
+  }
+
+  console.log(formsValue);
+  
   return (
     <div className="sign">
       <div className='sign__container'>
@@ -49,10 +78,14 @@ function Sign() {
             <h2 className='sign__title'>В курсе происходящего</h2>
             <h3 className='sign__title-second'>Присоединяйтесь к Твиттеру прямо сейчас!</h3>
             <div className='sign__btn-wrapper'>
-
-              <Button text={'Регистрация с помощью Google'} icon={<img src="/google.svg" width={20} alt="иконка"></img>} />
-              <Button text={'Зарегестрироваться с помощью учетной записью Apple'} icon={<img src="/apple.svg" width={20} alt="иконка"></img>} />
-
+              <Button onClick={toggleModalGoogle} text={'Регистрация с помощью Google'} icon={<img src="/google.svg" width={20} alt="иконка"></img>} />
+              <Modal open={openGoogle} toggleModal={toggleModalGoogle}>
+                <ModalFormGoogle onClose={toggleModalGoogle}/>
+              </Modal>
+              <Button onClick={toggleModalApple} text={'Зарегестрироваться с помощью учетной записью Apple'} icon={<img src="/apple.svg" width={20} alt="иконка"></img>} />
+              <Modal open={openApple} toggleModal={toggleModalApple}>
+                  <ModalFormApple onClose={toggleModalApple}/>
+              </Modal>
               <div className='sign__dash'>
                 <div className='sign__dash-left dash'>
                   <div className='left'></div>
@@ -64,18 +97,13 @@ function Sign() {
                   <div className='right'></div>
                 </div>
               </div>
-              <Button onClick={showModal} className={'sign__btn-signup btn-component'} text= {'Зарегистрируйтесь с помощью номера телефона или адреса электронной почты'} />
-              <div className= {` modal bounceIn ${open ? 'modal--show' : ''}`}  >
-                
-                <div className='modal__form'>
-                <div className="modal__close" onClick={closeModal}>+</div>
-                  <h3 className="fio-form__step">Шаг {activeModal >=3 ? '3' : activeModal}  из 3</h3>
-                  {activeModal === 1 && <ModalForm/>}
-                  {activeModal === 2 && <ModalFormSecond/>}
-                  {activeModal === 3 && <ModalFormThird/>}
-                  <Button text={activeModal >= 3 ? 'Зарегистрироваться' : 'Далее'} className={'fio-Form-btn btn'} onClick={activeModal === 3 ? closeModal : handleClickNextStep} />
-                </div>
-              </div>
+              <Button onClick={toggleModalSign} className={'sign__btn-signup btn-component'} text= {'Зарегистрируйтесь с помощью номера телефона или адреса электронной почты'} />
+              <Modal open={openSign} toggleModal={toggleModalSign}>
+                <h3 className="modal__step">Шаг {activeModal >= 3 ? '3' : activeModal}  из 3</h3>
+                {activeModal === 1 && <ModalForm changeFormsValue={handleFormsValue} nextStep={handleClickNextStep}/>}
+                {activeModal === 2 && <ModalFormSecond changeFormsValue={handleFormsValue} nextStep={handleClickNextStep}/>}
+                {activeModal === 3 && <ModalFormThird changeFormsValue={handleFormsValue} nextStep={handleClickNextStep} onClose={toggleModalSign}/>}
+              </Modal>
               <div className='sign__privacy_wrapp'>
                 Регистрируясь, вы соглашаетесь с
                 <a href="!#" className='sign__privacy-link'>Условиями предоставления услуг</a>
@@ -87,7 +115,7 @@ function Sign() {
               </div>
               <div className='sign__registr'>
                 <h3 className='sign__registr-title'>Уже зарегистрированы?</h3>
-                <Link className='sign__registr-btn btn' to="/home" >Войти</Link>
+                <Link className='sign__registr-btn btn' to="/home">Войти</Link>
               </div>
             </div>
           </div>
