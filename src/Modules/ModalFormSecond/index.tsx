@@ -7,8 +7,8 @@ import React from 'react';
 function ModalFormSecond({changeFormsValue,nextStep}: {changeFormsValue:any, nextStep: any}) {
 
   const [inputsValue, setInputsValue] = useState({
-    login: '',
-    password: '',
+    login: 'login',
+    password: 'password',
     email: '',
   })
 
@@ -31,7 +31,7 @@ function ModalFormSecond({changeFormsValue,nextStep}: {changeFormsValue:any, nex
     })
   }
 
- const onSubmit = (event: React.MouseEvent<HTMLElement>) => {
+  const onSubmit = (event: React.MouseEvent<HTMLElement>) => {
       event.preventDefault()
   
       //Валидация на заполнены ли поля
@@ -39,10 +39,9 @@ function ModalFormSecond({changeFormsValue,nextStep}: {changeFormsValue:any, nex
   
         changeFormsValue(inputsValue)
         nextStep()
-    }
+  }
+  
   return (
-    
-   
     <div className="sign__modal_form">
       <h2 className="sign__modal_form-title">Создайте учетную запись</h2>
       <form className='sign__modal_form-form' action="#" method='GET'>

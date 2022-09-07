@@ -5,11 +5,12 @@ import ModalForm from '../../Modules/ModalForm';
 import ModalFormSecond from '../../Modules/ModalFormSecond';
 import ModalFormThird from '../../Modules/ModalFormThird';
 import FooterLink from '../../components/FooterLink';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import React from 'react';
 import ModalFormGoogle from '../../Modules/ModalFormGoogle';
 import Modal from '../../components/Modal';
 import ModalFormApple from '../../Modules/ModalFormApple';
+import ModalFormRegistr from '../../Modules/ModalFormRegistr';
 
 interface FormsValue {
   name?: string;
@@ -18,12 +19,16 @@ interface FormsValue {
   login?: string;
 }
 
-function Sign() {
+function Sign(props:any) {
   const [openSign, setOpenSign] = useState<boolean>(false);
   const [openGoogle, setOpenGoogle] = useState<boolean>(false);
   const [openApple, setOpenApple] = useState<boolean>(false);
+  const [openReg, setOpenReg] = useState<boolean>(false);
   const [activeModal, setActiveModal] = useState<number>(1);
   const [formsValue, setFormsValue] = useState<FormsValue>({});
+  //const divref = useRef(null)
+  console.log(props);
+  
 
   const handleFormsValue = (value: FormsValue) => {
     setFormsValue(prev => {
@@ -37,11 +42,14 @@ function Sign() {
   const toggleModalGoogle = () => {
     setOpenGoogle(prev => !prev)
   }
-   const toggleModalApple = () => {
+  const toggleModalApple = () => {
     setOpenApple(prev => !prev)
   } 
   const toggleModalSign = () => {
     setOpenSign(prev => !prev)
+  }
+  const toggleModalReg = () => {
+    setOpenReg(prev => !prev)
   }
   
   const handleClickNextStep = () => {
@@ -115,7 +123,10 @@ function Sign() {
               </div>
               <div className='sign__registr'>
                 <h3 className='sign__registr-title'>Уже зарегистрированы?</h3>
-                <Link className='sign__registr-btn btn' to="/home">Войти</Link>
+                <Button onClick={toggleModalReg} className='sign__registr-btn btn' text= {'Войти'}/>
+                <Modal open={openReg} toggleModal={toggleModalReg}>
+                  <ModalFormRegistr/>
+                </Modal>
               </div>
             </div>
           </div>

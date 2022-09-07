@@ -11,7 +11,7 @@ interface Props {
 
 function Button({text, icon, className, onClick, id}: Props) {
   return (
-    <button className={`btn-component ${className}`} onClick={onClick} id={id}>
+    <button className={`btn-component ${className}`} onClick={onClick} id={id} type="submit">
       {icon}
       <span className='btn-component-min'>{text}</span>
     </button>

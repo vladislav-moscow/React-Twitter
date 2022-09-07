@@ -45,6 +45,11 @@
       box-shadow: 1px 1px 0 0 rgb(29, 155, 240) ;
     }
 
+    &--warning {
+      border-color: rgb(197, 0, 0) !important;
+      box-shadow: 1px 1px 0 0 rgb(196, 7, 7) !important ;
+    }
+    
     &-clear {
       position: absolute;
       top:16px;

@@ -2,9 +2,10 @@ import './ModalForm.scss';
 import MonthSelect from '../../components/MonthSelect';
 import DaySelect from '../../components/DaySelect';
 import YearSelect from '../../components/YearSelect';
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 import Button from '../../components/Button';
 import React from 'react';
+import { validateRequire } from '../../utilits/validation';
 
 function ModalForm({changeFormsValue, nextStep}: {changeFormsValue: any, nextStep:any}) {
 
@@ -15,36 +16,47 @@ function ModalForm({changeFormsValue, nextStep}: {changeFormsValue: any, nextSte
     day: '',
     year: ''
   })
+
+  const inputName:any = useRef(null)
+  const inputPhone:any = useRef(null)
  
 
-  const handleChange = (event:any) => {
+  const handleChange = (e:any) => {
     setInputsValue(prev => {
       return {
         ...prev,
-      [event.target.name]: event.target.value
+      [e.target.name]: e.target.value
+      }
+    })
+    validate()
+  }
+
+  
+
+  const validate = () => {
+    validateRequire(inputsValue.name, inputName)
+    validateRequire(inputsValue.phone, inputPhone)
+
+    return validateRequire(inputsValue.name, inputName) && validateRequire(inputsValue.phone, inputPhone)
+  }
+
+  const handleClear = (event:any, ) => {
+    setInputsValue(prev => {
+      return {
+        ...prev,
+        [event.target.id]: ''
       }
       
     })
   }
 
-  const handleClear = (event:any) => {
-    setInputsValue(prev => {
-      return {
-        ...prev,
-      [event.target.id]: ''
-      }
-      
-    })
-  }
-
-  const onSubmit = (event: React.MouseEvent<HTMLElement>) => {
+  const onSubmit = (event: any) => {
     event.preventDefault()
 
     //Валидация на заполнены ли поля
-    if(!inputsValue.name || !inputsValue.phone) {return}
-
-      changeFormsValue(inputsValue)
-      nextStep()
+    validate()
+    changeFormsValue(inputsValue)
+    nextStep()
   }
 
   return (
@@ -52,11 +64,11 @@ function ModalForm({changeFormsValue, nextStep}: {changeFormsValue: any, nextSte
       <h2 className="sign__modal_form-title">Создайте учетную запись</h2>
       <form className='sign__modal_form-form' action="#" method='GET'>
         <div className="sign__modal_form-wrapper">
-          <input className='sign__modal_form-input' type="text" name='name' placeholder='Имя' onChange={handleChange} value={inputsValue.name}/>
+          <input className='sign__modal_form-input' ref={inputName} type="text" name='name' placeholder='Имя' onChange={handleChange} value={inputsValue.name}/>
           <span className="sign__modal_form-input-clear" id ='name' onClick={handleClear}>X</span>
         </div>
         <div className="sign__modal_form-wrapper">
-          <input className='sign__modal_form-input' type="phone" name='phone' placeholder='Телефон' onChange={handleChange} value={inputsValue.phone}/>
+          <input className='sign__modal_form-input' ref={inputPhone} type="phone" name='phone' placeholder='Телефон' onChange={handleChange} value={inputsValue.phone}/>
           <span className="sign__modal_form-input-clear" id ='phone' onClick={handleClear}>X</span>
         </div>
         
