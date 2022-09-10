@@ -1,66 +1,65 @@
 .home {
-  display: flex;
-  justify-content: center;
-  position: relative;
+	display: flex;
+	justify-content: center;
+	position: relative;
+	color: white;
+	background-color: #000;
+	
 
-  &__posts {
-      height: 1800px;
-      width: 500px;
-      background-color: red;
+	&__posts {
+		height: 1800px;
+		width: 800px;
+		border-right: 1px solid grey;
+		border-left: 1px solid grey;
+		padding-top: 50px;
 
-      .status {
-        display: grid; 
-        grid-template-rows: 1fr 1fr 1fr 1fr;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        gap: 0px;
-        height: 10%;
-        
-        &-title {
-            background-color: #9DDFD8; 
-            grid-row-start: 1;
-            grid-column-start: 1;
-            grid-row-end: 2;
-            grid-column-end: 6;
-        }
+		.status {
+			display: grid;
+			grid-template-rows: 1fr 1fr 1fr 1fr;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			gap: 0px;
+			height: 10%;
 
-        &__img-wrapper {
-            background-color: #79595F; 
-   grid-row-start: 2;
-   grid-column-start: 1;
+			&-title {
+				grid-row-start: 1;
+				grid-column-start: 1;
+				grid-row-end: 2;
+				grid-column-end: 6;
+				border-bottom: 1px solid grey;
+			}
 
-   grid-row-end: 4;
-   grid-column-end: 2;
-        }
+			&__img-wrapper {
+				grid-row-start: 2;
+				grid-column-start: 1;
+				grid-row-end: 4;
+				grid-column-end: 2;
+				border-bottom: 1px solid grey;
+				border-right: 1px solid grey;
+			}
 
-        &__input {
-            background-color: #DBD559; 
-   grid-row-start: 2;
-   grid-column-start: 2;
+			&__input {
+				grid-row-start: 2;
+				grid-column-start: 2;
+				grid-row-end: 4;
+				grid-column-end: 6;
+				border-bottom: 1px solid grey;
+			}
 
-   grid-row-end: 4;
-   grid-column-end: 6;
-        }
+			&__icon {
+				grid-row-start: 4;
+				grid-column-start: 1;
+				grid-row-end: 5;
+				grid-column-end: 6;
+				border-bottom: 1px solid grey;
+			}
+		}
+	}
 
-        &__icon {
-            background-color: #76E986; 
-            grid-row-start: 4;
-            grid-column-start: 1;
-         
-            grid-row-end: 5;
-            grid-column-end: 6;
-        }
-     }
-       
-     
-     
-  }
-
-  &__aside {
-      height: 600px;
-      width: 300px;
-      background-color: green;
-  }
-
-  }
-
-  
+	&__aside {
+		height: 600px;
+		width: 300px;
+		border-right: 1px solid grey;
+		border-bottom: 1px solid grey;
+		padding-top: 50px;
+	}
+}

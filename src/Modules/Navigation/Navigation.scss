@@ -1,19 +1,17 @@
 .modules-navigation {
-  
     position: sticky;
     top: 0;
-    height: 600px;
-    width: 400px;
+    height: 500px;
+    width: 300px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    background-color: #000;
-    border-right: 1px solid grey;
+    gap: 25px;
+    padding: 30px 20px 0 0;
 
     &__svg {
         height: 45px;
-        fill: blue;
-
+        fill: white;
+        margin-bottom: 20px;
     }
 
     &__btn-twit {

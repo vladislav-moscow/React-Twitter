@@ -7,6 +7,14 @@ import Button from '../../components/Button';
 import React from 'react';
 import { validateRequire } from '../../utilits/validation';
 
+interface ModalFormValues {
+  name: string;
+  phone: string;
+  month: string;
+  day: string;
+  year: string;
+}
+
 function ModalForm({changeFormsValue, nextStep}: {changeFormsValue: any, nextStep:any}) {
 
   const [inputsValue, setInputsValue] = useState({
@@ -23,30 +31,32 @@ function ModalForm({changeFormsValue, nextStep}: {changeFormsValue: any, nextSte
 
   const handleChange = (e:any) => {
     setInputsValue(prev => {
-      return {
+      const payload = {
         ...prev,
       [e.target.name]: e.target.value
       }
+      validate(payload)
+      changeFormsValue(payload)
+      return payload
     })
-    validate()
+    
   }
 
   
 
-  const validate = () => {
-    validateRequire(inputsValue.name, inputName)
-    validateRequire(inputsValue.phone, inputPhone)
+  const validate = (vals:ModalFormValues) => {
+    validateRequire(vals.name, inputName)
+    validateRequire(vals.phone, inputPhone)
 
-    return validateRequire(inputsValue.name, inputName) && validateRequire(inputsValue.phone, inputPhone)
+    return validateRequire(vals.name, inputName) && validateRequire(vals.phone, inputPhone)
   }
 
-  const handleClear = (event:any, ) => {
+  const handleClear = (event:any) => {
     setInputsValue(prev => {
       return {
         ...prev,
         [event.target.id]: ''
       }
-      
     })
   }
 
@@ -54,8 +64,8 @@ function ModalForm({changeFormsValue, nextStep}: {changeFormsValue: any, nextSte
     event.preventDefault()
 
     //Валидация на заполнены ли поля
-    validate()
-    changeFormsValue(inputsValue)
+    if(!validate(inputsValue)) {return}
+    
     nextStep()
   }
 

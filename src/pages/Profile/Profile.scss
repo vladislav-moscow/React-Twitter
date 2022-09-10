@@ -2,16 +2,22 @@
   display: flex;
   justify-content: center;
   position: relative;
+  color: white;
+	background-color: #000;
 
   &__post {
     height: 1800px;
-    width: 500px;
-    background-color: red;
+		width: 800px;
+		border-right: 1px solid grey;
+		border-left: 1px solid grey;
+		padding-top: 50px;
 }
 
 &__aside {
-    height: 600px;
-    width: 300px;
-    background-color: green;
+  height: 600px;
+  width: 300px;
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+  padding-top: 50px;
 }
 }

@@ -5,15 +5,13 @@ import './Profile.scss';
 const Profile = () => {
   return(
     <section className="profile">
-    <Navigation/>
-
-    <section className="profile__post">
-      Propile
-    </section>
-
-    <aside className="profile__aside">
-      aside
-    </aside>
+      <Navigation/>
+      <section className="profile__post">
+        Profile
+      </section>
+      <aside className="profile__aside">
+        aside
+      </aside>
     </section>
   )
 }
