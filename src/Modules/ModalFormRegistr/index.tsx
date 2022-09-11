@@ -1,6 +1,5 @@
 import './ModalFormRegistr.scss';
 import React, { useState } from 'react';
-//import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import Button from '../../components/Button';
 
@@ -14,7 +13,7 @@ function ModalFormRegistr() {
   let navigate = useNavigate();
 
   const validateReg = () => {
-    if(inputsValue.loginReg === 'login' && inputsValue.passwordReg === 'password') {return};
+    if(inputsValue.loginReg === 'login' && inputsValue.passwordReg === 'password') {return true};
   } 
 
   const handleChange = (event:any) => {
@@ -30,7 +29,7 @@ function ModalFormRegistr() {
   const onSubmit = (event: any) => {
     event.preventDefault()
     //Валидация на заполнены ли поля
-    validateReg()
+    if(!validateReg()) {return}
     navigate(`/home`);
   }
 
@@ -45,7 +44,6 @@ function ModalFormRegistr() {
           <div className="sign__modal_form-wrapper">
             <input className='sign__modal_form-input' type="password" name='passwordReg' placeholder='Пароль' onChange={handleChange} value={inputsValue.passwordReg} required/>
           </div>
-          {/* <Link className={'btn-component__sign-modal btn'}  to="/home">Войти</Link> */}
           <Button className={'btn-component__sign-modal btn'} onClick={onSubmit} text={'Войти'}/>
         </form>
       </div>
