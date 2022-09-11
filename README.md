@@ -3,19 +3,19 @@
 ## Доступные Сценарии
 
 В каталоге проекта вы можете запустить:
+Для запуска проекта выполните ряд действий :
 
-### `npm start`
+### 1.  `json-server --watch db.json`
+
+Запуск сервера !
+Для просмотра данных откройте  [http://localhost:3001/posts](http://localhost:3001/posts)
+###  2. `npm start`
 
 Запускает приложение в режиме разработки.\
 Открывается [http://localhost:3000](http://localhost:3000) чтобы просмотреть его в вашем браузере.
 
-Страница перезагрузится, когда вы внесете изменения.\
+Стейт обновиться, когда вы внесете изменения.\
 Полное отсутствие ошибок в консоли разработчика.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
