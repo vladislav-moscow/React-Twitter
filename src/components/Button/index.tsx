@@ -2,7 +2,7 @@ import React from 'react';
 import './Button.scss';
 
 interface Props {
-  text: string;
+  text: any;
   className?: string;
   icon?: React.ReactNode;
   onClick?: (event:any) => any;

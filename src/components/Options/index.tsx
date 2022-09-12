@@ -22,7 +22,7 @@ function Options({onClickEdit, onClickDelete, options, id}: Props) {
   const open = Boolean(anchorEl);
 
 
-  const handleClickTab = (event: React.MouseEvent<HTMLElement>, index: number) => {
+  const handleClickTab = (index: number) => {
     if(index === 0) {
       onClickEdit && onClickEdit(id)
     }
@@ -68,7 +68,7 @@ function Options({onClickEdit, onClickDelete, options, id}: Props) {
 								}}
 							>
         				{options.map((option,index) => (
-          				<MenuItem key={option} selected={option === 'Pyxis'} onClick={(event)=> handleClickTab(event,index)}>
+          				<MenuItem key={option} selected={option === 'Pyxis'} onClick={()=> handleClickTab(index)}>
             				{option}
           				</MenuItem>
         				))}

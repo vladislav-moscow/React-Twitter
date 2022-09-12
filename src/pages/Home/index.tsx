@@ -4,6 +4,9 @@ import Navigation from '../../Modules/Navigation';
 import './Home.scss';
 import axios from 'axios';
 import Options from '../../components/Options';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import SearchIcon from '@mui/icons-material/Search';
 
 interface Post {
 	id: number;
@@ -25,24 +28,28 @@ const options = [
 function Home() {
 	const [searchText, setSearchText] = useState('');
 	const [data, setData] = useState<Post[]>([]);
-	const [createPosts, SetCreatePosts] = useState<CustomPost[]>([])
-	const [textPost, setTextPost] = useState<string>('')
+	const [createPosts, SetCreatePosts] = useState<CustomPost[]>([]);
+	const [textPost, setTextPost] = useState<string>('');
+	const [textBtn, setTextBtn] = useState('');
+	const [loading, setLoading] = useState<boolean>(false);
 	
 	
 	const handleClickEdit = (id?: number) => {
-		
-			createPosts.forEach((post) => {
-				if(post.id === id) {
-					setTextPost(post.body)
-				}
-			})
+		setTextBtn('Сохранить');
+		createPosts.forEach((post) => {
+			if(post.id === id) {
+				setTextPost(post.body)
+			}
+		})
   };
 
 	const handleClickDelete = (id?: number) => {
+		setLoading(true)
 		axios.delete(`http://localhost:3001/posts/${id}`)
 			.then(() => {
 				fetchPosts()
-			})
+			}).catch(error => console.log(error))
+			.finally(() => setLoading(false) )
 		
 };
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,11 +64,18 @@ function Home() {
 		const payload = {
 			body: textPost
 		}
-
-		axios.post('http://localhost:3001/posts', payload).then(() => {
-			fetchPosts()
-		})
-		setTextPost('')
+		setTextBtn('Твитнуть');
+		if(textBtn === 'Твитнуть') {
+			console.log('nen');
+			axios.post('http://localhost:3001/posts', payload).then(() => {
+				fetchPosts()
+			})
+			setTextPost('')
+				
+		} else {
+			
+		}
+		
 	}
 
 	const fetchPosts = () => {
@@ -71,12 +85,13 @@ function Home() {
 	}
 
 	useEffect(() =>{
+		setLoading(true)
 		axios.get('https://jsonplaceholder.typicode.com/posts').then((res) => {
 			setData(res.data)
-		})
+		}).catch(error => console.log(error))
+		.finally(() => setLoading(false) )
 		fetchPosts()
 	},[])
-
 	
 	return (
 		<section className="home">
@@ -91,10 +106,12 @@ function Home() {
 						<textarea className='textarea' rows={5} cols={50} value={textPost} onChange={handlePostsChange}> </textarea>
 					</div>
 					<div className="status__icon">
-						<Button text={'Твитнуть'} onClick={handleTwit}/>
+						{/* {textBtn ? <Button onClick={handleTwit} text={textBtn}/> : } */}
+						<Button onClick={handleTwit} text={textBtn ? textBtn : 'Твитнуть'} />
 					</div>
 				</section>
-				{createPosts.filter(item => item.body.toLowerCase().includes(searchText.toLowerCase())).map(post => {
+				{loading ? <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CircularProgress /></Box>:
+				createPosts.filter(item => item.body.toLowerCase().includes(searchText.toLowerCase())).map(post => {
 					return (
 						<div key={post.id} className='home__posts-wrapper'>
 							<Options onClickEdit={handleClickEdit} options={options} id={post.id} onClickDelete={handleClickDelete}/>
@@ -102,7 +119,7 @@ function Home() {
 						</div>
 					)
 				}).reverse()}
-				{data.filter(item => item.title.toLowerCase().includes(searchText.toLowerCase()) || item.body.toLowerCase().includes(searchText.toLowerCase())).map(post => {
+				{data && data.filter(item => item.title.toLowerCase().includes(searchText.toLowerCase()) || item.body.toLowerCase().includes(searchText.toLowerCase())).map(post => {
 					return (
 						<div key={post.id} className='home__posts-wrapper'>
 							
@@ -112,8 +129,12 @@ function Home() {
 					)
 				})}
 			</section>
-			<aside className="home__aside">
-				<input type="text" onChange={handleChange} value={searchText}/>
+			<aside className="home-aside">
+				<div className="home-aside__wrapper">
+					<SearchIcon className='home-aside__icon'/>
+					<input className='home-aside__search' type="text" onChange={handleChange} value={searchText} placeholder='Search...'/>
+				</div>
+				
 			</aside>
 		</section>
 	);
