@@ -6,7 +6,8 @@ import axios from 'axios';
 import Options from '../../components/Options';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import SearchIcon from '@mui/icons-material/Search';
+import Aside from '../../Modules/Aside';
+
 
 interface Post {
 	id: number;
@@ -65,16 +66,13 @@ function Home() {
 			body: textPost
 		}
 		setTextBtn('Твитнуть');
-		if(textBtn === 'Твитнуть') {
-			console.log('nen');
+		if(payload.body) {
 			axios.post('http://localhost:3001/posts', payload).then(() => {
 				fetchPosts()
 			})
 			setTextPost('')
-				
-		} else {
-			
 		}
+		
 		
 	}
 
@@ -129,13 +127,7 @@ function Home() {
 					)
 				})}
 			</section>
-			<aside className="home-aside">
-				<div className="home-aside__wrapper">
-					<SearchIcon className='home-aside__icon'/>
-					<input className='home-aside__search' type="text" onChange={handleChange} value={searchText} placeholder='Search...'/>
-				</div>
-				
-			</aside>
+			<Aside handleChange={handleChange} searchText={searchText}/>
 		</section>
 	);
 }

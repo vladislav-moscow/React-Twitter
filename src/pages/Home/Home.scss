@@ -1,4 +1,5 @@
 .home {
+	width: 100vw;
 	display: flex;
 	justify-content: center;
 	position: relative;
@@ -63,7 +64,6 @@
 	&-aside {
 		height: 600px;
 		width: 350px;
-		border-bottom: 1px solid grey;
 		padding-top: 10px;
 		padding-left: 2rem;
 
@@ -102,5 +102,52 @@
 			height: 44px;
 			color: rgb(113, 118, 123);
 		}
+		&__current {
+			width: 100%;
+			min-height: 800px;
+			margin-top: 1.5rem;
+			border: 1px solid #16181c;
+			background-color: #16181c;
+			border-radius: 22px;
+			padding: .75rem 1.5rem;
+
+			&-title {
+				font-weight: bold;
+				font-size: 21px;
+			}
+
+			&-wrapper {
+				margin-top: 1.5rem;
+				display: flex;
+				flex-direction: column;
+				gap: 30px;
+			}
+			&-topic {
+				display: flex;
+				justify-content: space-between;
+			}
+
+			&-content {
+				display: flex;
+				flex-direction: column;
+				gap: 7px;
+				padding: 5px;
+			}
+			
+			&-signature {
+				color:#fff;
+				font-size: 18px;
+				font-weight: bold;
+			}
+			&-menu {
+				color: rgb(113, 118, 123);
+				font-size: 21px;
+				cursor: pointer;
+			}
+		}
+	}
+	.aside-content {
+		color: rgb(113, 118, 123);
+		font-size: 13px;
 	}
 }

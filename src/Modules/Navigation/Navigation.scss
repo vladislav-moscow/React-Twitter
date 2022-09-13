@@ -17,5 +17,23 @@
     &__btn-twit {
         width: 100%;
     }
+
+    .nav-list__link {
+        width: 220px;
+        height: 44px;
+        padding: 0 1rem;
+        display: flex;
+        align-items:center;
+        gap: 20px;
+        border: 1px solid #000;
+        border-radius: 22px;
+
+
+        &:hover {
+            border: 1px solid rgb(29, 155, 240);
+            background-color: #16181c;
+            color: rgb(29, 155, 240);
+        }
+    }
   
 }
