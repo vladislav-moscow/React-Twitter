@@ -19,6 +19,8 @@ interface FormsValue {
   login?: string;
 }
 
+var date = new Date().getFullYear();
+
 function Sign(props:any) {
   const [openSign, setOpenSign] = useState<boolean>(false);
   const [openGoogle, setOpenGoogle] = useState<boolean>(false);
@@ -135,7 +137,7 @@ function Sign(props:any) {
       <footer className='sign__footer'>
         <nav className='sign__footer-nav'>
           <FooterLink/>
-          <span className='sign__footer-link'>© Twitter, Inc., 2022.</span>
+          <span className='sign__footer-link'>© Twitter, Inc., {date}.</span>
         </nav>
       </footer>
     </div>

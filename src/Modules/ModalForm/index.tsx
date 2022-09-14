@@ -29,7 +29,7 @@ function ModalForm({changeFormsValue, nextStep}: {changeFormsValue: any, nextSte
   const inputPhone:any = useRef(null)
  
 
-  const handleChange = (e:any) => {
+  const handleChange = (e:React.InputHTMLAttributes<HTMLInputElement> | any) => {
     setInputsValue(prev => {
       const payload = {
         ...prev,

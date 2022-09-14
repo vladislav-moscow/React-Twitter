@@ -156,8 +156,6 @@ $color-content: #d6d9db;
       padding-left: 16px;
       padding-right: 16px;
       color: rgb(29, 155, 240) !important;
-      transition: .3s;
-      
       background: linear-gradient(to left, rgba(0, 0, 0, 0) 50%, rgba(29, 155, 240, 0.1) 50%) right;
       background-size: 200%;
       transition: .5s ease-out;
@@ -167,7 +165,6 @@ $color-content: #d6d9db;
       }
     }
   }
-
   &__footer {
     &-nav {
       display: flex;

@@ -22,7 +22,7 @@ interface CustomPost {
 }
 
 const options = [
-  'Редактировать',
+	'Редактировать',
 	'Удалить',
 ];
 
@@ -33,16 +33,16 @@ function Home() {
 	const [textPost, setTextPost] = useState<string>('');
 	const [textBtn, setTextBtn] = useState('');
 	const [loading, setLoading] = useState<boolean>(false);
-	
-	
+
+
 	const handleClickEdit = (id?: number) => {
 		setTextBtn('Сохранить');
 		createPosts.forEach((post) => {
-			if(post.id === id) {
+			if (post.id === id) {
 				setTextPost(post.body)
 			}
 		})
-  };
+	};
 
 	const handleClickDelete = (id?: number) => {
 		setLoading(true)
@@ -50,9 +50,9 @@ function Home() {
 			.then(() => {
 				fetchPosts()
 			}).catch(error => console.log(error))
-			.finally(() => setLoading(false) )
-		
-};
+			.finally(() => setLoading(false))
+
+	};
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchText(event.target.value)
 	}
@@ -66,14 +66,14 @@ function Home() {
 			body: textPost
 		}
 		setTextBtn('Твитнуть');
-		if(payload.body) {
+		if (payload.body) {
 			axios.post('http://localhost:3001/posts', payload).then(() => {
 				fetchPosts()
 			})
 			setTextPost('')
 		}
-		
-		
+
+
 	}
 
 	const fetchPosts = () => {
@@ -82,15 +82,15 @@ function Home() {
 		})
 	}
 
-	useEffect(() =>{
+	useEffect(() => {
 		setLoading(true)
 		axios.get('https://jsonplaceholder.typicode.com/posts').then((res) => {
 			setData(res.data)
 		}).catch(error => console.log(error))
-		.finally(() => setLoading(false) )
+			.finally(() => setLoading(false))
 		fetchPosts()
-	},[])
-	
+	}, [])
+
 	return (
 		<section className="home">
 			<Navigation />
@@ -108,26 +108,26 @@ function Home() {
 						<Button onClick={handleTwit} text={textBtn ? textBtn : 'Твитнуть'} />
 					</div>
 				</section>
-				{loading ? <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CircularProgress /></Box>:
-				createPosts.filter(item => item.body.toLowerCase().includes(searchText.toLowerCase())).map(post => {
-					return (
-						<div key={post.id} className='home__posts-wrapper'>
-							<Options onClickEdit={handleClickEdit} options={options} id={post.id} onClickDelete={handleClickDelete}/>
-							<p className='home__posts-body'>{post.body}</p>
-						</div>
-					)
-				}).reverse()}
+				{loading ? <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CircularProgress /></Box> :
+					createPosts.filter(item => item.body.toLowerCase().includes(searchText.toLowerCase())).map(post => {
+						return (
+							<div key={post.id} className='home__posts-wrapper'>
+								<Options onClickEdit={handleClickEdit} options={options} id={post.id} onClickDelete={handleClickDelete} />
+								<p className='home__posts-body'>{post.body}</p>
+							</div>
+						)
+					}).reverse()}
 				{data && data.filter(item => item.title.toLowerCase().includes(searchText.toLowerCase()) || item.body.toLowerCase().includes(searchText.toLowerCase())).map(post => {
 					return (
 						<div key={post.id} className='home__posts-wrapper'>
-							
+
 							<h2 className='home__posts-title'>{post.title}</h2>
 							<p className='home__posts-body'>{post.body}</p>
 						</div>
 					)
 				})}
 			</section>
-			<Aside handleChange={handleChange} searchText={searchText}/>
+			<Aside handleChange={handleChange} searchText={searchText} />
 		</section>
 	);
 }
