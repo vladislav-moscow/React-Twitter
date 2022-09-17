@@ -7,7 +7,7 @@ import Options from '../../components/Options';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Aside from '../../Modules/Aside';
-
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 interface Post {
 	id: number;
@@ -53,6 +53,7 @@ function Home() {
 			.finally(() => setLoading(false))
 
 	};
+	
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchText(event.target.value)
 	}
@@ -98,14 +99,14 @@ function Home() {
 				<section className='status'>
 					<h2 className="status-title">Главная</h2>
 					<div className="status__img-wrapper">
-						<img src="" alt="face" className="status__img" />
+						<AccountCircleIcon className='status__img-avatar'/>
 					</div>
 					<div className="status__input">
-						<textarea className='textarea' rows={5} cols={50} value={textPost} onChange={handlePostsChange}> </textarea>
+						<textarea className='status__input-textArea' rows={2} cols={49} value={textPost} onChange={handlePostsChange} placeholder='Что происходит?'> </textarea>
 					</div>
 					<div className="status__icon">
 						{/* {textBtn ? <Button onClick={handleTwit} text={textBtn}/> : } */}
-						<Button onClick={handleTwit} text={textBtn ? textBtn : 'Твитнуть'} />
+						<Button className={'home__twit'} onClick={handleTwit} text={textBtn ? textBtn : 'Твитнуть'}/>
 					</div>
 				</section>
 				{loading ? <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CircularProgress /></Box> :

@@ -6,27 +6,49 @@
 	color: white;
 	background-color: #000;
 	
+	&__twit {
+		width: 150px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: rgb(29, 155, 240);
+		color: #fff;
+		border: 1px solid #000;
+		float: right;
+		margin-right: 50px;
+
+		&:hover {
+			border: 1px solid rgb(29, 155, 240);
+			background-color: #000;
+		}
+	}
+
+	&__twit span {
+		font-size: 18px !important;
+		margin-left: 0 !important;
+	}
 
 	&__posts {
 		height: 100%;
 		width: 800px;
 		border-right: 1px solid grey;
 		border-left: 1px solid grey;
-		padding-top: 50px;
+		padding-top: 10px;
 
 		.status {
 			display: grid;
-			grid-template-rows: 1fr 1fr 1fr 1fr;
-			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			grid-template-rows: 50px 50px 45px 50px;
+			grid-template-columns: 75px 150px 150px 1fr 1fr;
 			gap: 0px;
 			height: 10%;
+			
 
 			&-title {
 				grid-row-start: 1;
 				grid-column-start: 1;
 				grid-row-end: 2;
 				grid-column-end: 6;
-				border-bottom: 1px solid grey;
+				padding-left: 15px;
 			}
 
 			&__img-wrapper {
@@ -34,8 +56,13 @@
 				grid-column-start: 1;
 				grid-row-end: 4;
 				grid-column-end: 2;
-				border-bottom: 1px solid grey;
-				border-right: 1px solid grey;
+				padding-left: 13px;
+
+				.status__img-avatar {
+					color: rgb(168, 194, 216);
+					font-size: 50px;
+					margin-top: 6px;
+				}
 			}
 
 			&__input {
@@ -43,7 +70,20 @@
 				grid-column-start: 2;
 				grid-row-end: 4;
 				grid-column-end: 6;
-				border-bottom: 1px solid grey;
+				padding: .5rem 0;
+
+				&-textArea {
+					resize: none;
+					padding: 10px;
+					border: 1px solid #000;
+					color: rgb(113, 118, 123);
+					font-size: 21px;
+					background-color: #000;
+
+					&:focus, &:active {
+						outline: none;
+					}
+				}
 			}
 
 			&__icon {
