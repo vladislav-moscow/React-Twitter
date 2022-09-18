@@ -8,6 +8,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Aside from '../../Modules/Aside';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { CustomPost, fetch, post, remove, update } from '../../store/post/postSlice'
+
 
 interface Post {
 	id: number;
@@ -16,27 +19,27 @@ interface Post {
 	body: string
 }
 
-interface CustomPost {
-	id: number;
-	body: string;
-}
-
 const options = [
 	'Редактировать',
 	'Удалить',
 ];
 
 function Home() {
-	const [searchText, setSearchText] = useState('');
+	const [searchText, setSearchText] = useState<string>('');
 	const [data, setData] = useState<Post[]>([]);
-	const [createPosts, SetCreatePosts] = useState<CustomPost[]>([]);
 	const [textPost, setTextPost] = useState<string>('');
-	const [textBtn, setTextBtn] = useState('');
+	const [changeMode, setChangeMode] = useState<boolean>(false);
 	const [loading, setLoading] = useState<boolean>(false);
+	const [currentPost, setCurrentPost] = useState<number>();
+	const dispatch = useAppDispatch();
+	const createPosts: CustomPost[] = useAppSelector((store: any) => store.post.posts)
 
 
-	const handleClickEdit = (id?: number) => {
-		setTextBtn('Сохранить');
+	const handleClickEdit = (id: number) => {
+		setCurrentPost(id)
+		setChangeMode(true);
+
+		//поиск поста и переносит его текст в инпут
 		createPosts.forEach((post) => {
 			if (post.id === id) {
 				setTextPost(post.body)
@@ -44,16 +47,22 @@ function Home() {
 		})
 	};
 
-	const handleClickDelete = (id?: number) => {
-		setLoading(true)
-		axios.delete(`http://localhost:3001/posts/${id}`)
-			.then(() => {
-				fetchPosts()
-			}).catch(error => console.log(error))
-			.finally(() => setLoading(false))
+	const handleUpdateTwit = () => {
+		const payload = {
+			id: currentPost,
+			body: textPost
+		} as CustomPost
+		if (payload.body) {
+			dispatch(update(payload)).then(fetchPosts)
+			setTextPost('')
+		}
+	}
+
+	const handleClickDelete = (id: number) => {
+		dispatch(remove(id)).then(fetchPosts)
 
 	};
-	
+
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchText(event.target.value)
 	}
@@ -66,21 +75,14 @@ function Home() {
 		const payload = {
 			body: textPost
 		}
-		setTextBtn('Твитнуть');
 		if (payload.body) {
-			axios.post('http://localhost:3001/posts', payload).then(() => {
-				fetchPosts()
-			})
+			dispatch(post(payload)).then(fetchPosts)
 			setTextPost('')
 		}
-
-
 	}
 
 	const fetchPosts = () => {
-		axios.get('http://localhost:3001/posts').then((res) => {
-			SetCreatePosts(res.data)
-		})
+		dispatch(fetch())
 	}
 
 	useEffect(() => {
@@ -106,7 +108,8 @@ function Home() {
 					</div>
 					<div className="status__icon">
 						{/* {textBtn ? <Button onClick={handleTwit} text={textBtn}/> : } */}
-						<Button className={'home__twit'} onClick={handleTwit} text={textBtn ? textBtn : 'Твитнуть'}/>
+						{!changeMode && <Button className={'home__twit'} onClick={handleTwit} text={'Твитнуть'}/>}
+						{changeMode && <Button className={'home__twit'} onClick={handleUpdateTwit} text={'Сохранить'}/>}
 					</div>
 				</section>
 				{loading ? <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CircularProgress /></Box> :
