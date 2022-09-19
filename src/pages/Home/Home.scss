@@ -92,6 +92,20 @@
 				grid-row-end: 5;
 				grid-column-end: 6;
 				border-bottom: 1px solid grey;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				
+				&-wrapp {
+					margin-left: 100px;
+					color:rgb(29, 155, 240);
+					display: flex;
+					gap: 25px;
+				}
+
+				&-icons {
+					font-size: 30px;
+				}
 			}
 		}
 

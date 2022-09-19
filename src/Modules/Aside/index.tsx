@@ -14,7 +14,7 @@ function Aside({handleChange, searchText} : Props) {
 				<Search handleChange={handleChange} searchText={searchText}/>
 				<AsideCurrent/>
 				
-			</aside>
+		</aside>
   );
 }
 

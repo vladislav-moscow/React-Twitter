@@ -10,7 +10,11 @@ import Aside from '../../Modules/Aside';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { CustomPost, fetch, post, remove, update } from '../../store/post/postSlice'
-
+import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
+import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
+import SentimentSatisfiedRoundedIcon from '@mui/icons-material/SentimentSatisfiedRounded';
+import RoomOutlinedIcon from '@mui/icons-material/RoomOutlined';
+import LeaderboardOutlinedIcon from '@mui/icons-material/LeaderboardOutlined';
 
 interface Post {
 	id: number;
@@ -107,9 +111,17 @@ function Home() {
 						<textarea className='status__input-textArea' rows={2} cols={49} value={textPost} onChange={handlePostsChange} placeholder='Что происходит?'> </textarea>
 					</div>
 					<div className="status__icon">
-						{/* {textBtn ? <Button onClick={handleTwit} text={textBtn}/> : } */}
-						{!changeMode && <Button className={'home__twit'} onClick={handleTwit} text={'Твитнуть'}/>}
-						{changeMode && <Button className={'home__twit'} onClick={handleUpdateTwit} text={'Сохранить'}/>}
+						<div className="status__icon-wrapp">
+							<ImageOutlinedIcon className='status__icon-icons'/>
+							<GifBoxOutlinedIcon className='status__icon-icons'/>
+							<LeaderboardOutlinedIcon className='status__icon-icons'/>
+							<SentimentSatisfiedRoundedIcon className='status__icon-icons'/>
+							<RoomOutlinedIcon className='status__icon-icons'/>
+						</div>
+						<div className="status__icon-btn">
+							{!changeMode && <Button className={'home__twit'} onClick={handleTwit} text={'Твитнуть'}/>}
+							{changeMode && <Button className={'home__twit'} onClick={handleUpdateTwit} text={'Сохранить'}/>}
+						</div>
 					</div>
 				</section>
 				{loading ? <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CircularProgress /></Box> :
