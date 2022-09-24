@@ -1,23 +1,85 @@
 .profile {
+  width: 100vw;
   display: flex;
   justify-content: center;
   position: relative;
   color: white;
 	background-color: #000;
 
-  &__post {
-    height: 1800px;
+  &-header {
+    min-height: 100%;
 		width: 800px;
 		border-right: 1px solid grey;
 		border-left: 1px solid grey;
-		padding-top: 50px;
-}
+		padding-top: 30px;
 
-&__aside {
-  height: 600px;
-  width: 300px;
-  border-right: 1px solid grey;
-  border-bottom: 1px solid grey;
-  padding-top: 50px;
-}
+    &__heading {
+      padding-left: 50px;
+      padding-bottom: 5px;
+
+      &-title {
+        font-size: 2rem;
+        font-weight: bold;
+      }
+
+      &-twits {
+        font-size: 14px;
+        color: #71767b;
+      }
+    }
+
+    &__images-module {
+      height: 350px;
+      background: linear-gradient(to bottom, #16181c 80%, #000 20% );
+      position: relative;
+
+      &-wrapper {
+        border: 7px solid #000;
+        background: rgb(124, 127, 131);
+        width: 153.66px;
+        height: 153.66px;
+        border-radius: 50%;
+        margin-left: 40px;
+        position: absolute;
+        top: 200px;
+      }
+
+      &-avatar {
+        margin-top: 1rem;
+        margin-top: -18px;
+        margin-left: -18px;
+        color: rgb(183, 203, 223);
+				font-size: 11rem !important;
+      }
+
+      &-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #71767b;
+        background: #000;
+        border: 1px solid #71767b;
+        width: 200px;
+        position: relative;
+        top: 300px;
+        float: right;
+        right: 50px;
+        transition: .5s;
+
+        &:hover {
+          border: 1px solid rgb(29, 155, 240);
+          color: #ffffff;
+        }
+      }
+
+    }
+  }
+
+  &__aside {
+    height: 600px;
+    width: 300px;
+    border-right: 1px solid grey;
+    border-bottom: 1px solid grey;
+    padding-top: 50px;
+  }
 }
