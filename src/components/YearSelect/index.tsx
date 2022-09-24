@@ -8,7 +8,7 @@ function YearSelect() {
     year.push(i)
   }
 
-  const yearItem = year.map((item,index) =>  <option key={`${index}_${item}`} value={ index + 1 }>{ item }</option> )
+  const yearItem = year.map((item,index) =>  <option key={`${index}_${item}`} value={ item }>{ item }</option> )
   return (
     <>
     {yearItem}

@@ -27,6 +27,9 @@ function ModalForm({changeFormsValue, nextStep}: {changeFormsValue: any, nextSte
 
   const inputName:any = useRef(null)
   const inputPhone:any = useRef(null)
+  const inputMounth: any = useRef(null)
+  const inputDay: any = useRef(null)
+  const inputYear: any = useRef(null)
  
 
   const handleChange = (e:React.InputHTMLAttributes<HTMLInputElement> | any) => {
@@ -95,7 +98,7 @@ function ModalForm({changeFormsValue, nextStep}: {changeFormsValue: any, nextSte
             <label className='label' dir='auto' id='Sector1'>
             <span>Месяц</span>
           </label>
-          <select className='sign__modal_form-birthdate-sector1 select' name="month" id="Sector1" onChange={handleChange}>
+          <select className='sign__modal_form-birthdate-sector1 select' name="month" id="Sector1" ref={inputMounth} value={inputsValue.month} onChange={handleChange}>
             <MonthSelect/>
           </select>
           </div>
@@ -103,7 +106,7 @@ function ModalForm({changeFormsValue, nextStep}: {changeFormsValue: any, nextSte
             <label className='label' dir='auto' id='Sector2'>
               <span>День</span>
             </label>
-            <select className='sign__modal_form-birthdate-sector2 select' name="day" id="Sector2" onChange={handleChange}>
+            <select className='sign__modal_form-birthdate-sector2 select' name="day" id="Sector2" ref={inputDay} value={inputsValue.day} onChange={handleChange}>
               <DaySelect/>
             </select>
           </div>
@@ -111,7 +114,7 @@ function ModalForm({changeFormsValue, nextStep}: {changeFormsValue: any, nextSte
             <label className='label' dir='auto' id='Sector3'>
               <span>Год</span>
             </label>
-            <select className='sign__modal_form-birthdate-sector3 select' name="year" id="Sector3" onChange={handleChange}>
+            <select className='sign__modal_form-birthdate-sector3 select' name="year" id="Sector3" ref={inputYear} value={inputsValue.year} onChange={handleChange}>
               <YearSelect/>
             </select>
           </div>

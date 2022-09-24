@@ -17,9 +17,12 @@ interface FormsValue {
   phone?: string;
   month?: string;
   login?: string;
+  password?: string;
+  day?: string;
+  year?: string;
 }
 
-var date = new Date().getFullYear();
+let date = new Date().getFullYear();
 
 function Sign(props:any) {
   const [openSign, setOpenSign] = useState<boolean>(false);
