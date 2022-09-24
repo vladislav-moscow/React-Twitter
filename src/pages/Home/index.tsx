@@ -96,6 +96,7 @@ function Home() {
 		}).catch(error => console.log(error))
 			.finally(() => setLoading(false))
 		fetchPosts()
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	return (
