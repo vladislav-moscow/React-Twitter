@@ -33,6 +33,7 @@ const Profile = () => {
         </div>
       </section>
       <Aside handleChange={handleChange} searchText={searchText} />
+      <Aside handleChange={handleChange} searchText={searchText} />
     </section>
   )
 }
