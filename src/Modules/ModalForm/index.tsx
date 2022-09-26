@@ -6,8 +6,10 @@ import {useRef, useState} from 'react';
 import Button from '../../components/Button';
 import React from 'react';
 import { validateRequire } from '../../utilits/validation';
+import { useAppDispatch } from '../../hooks/hooks';
+import {addValuesInRegisterUser} from '../../store/user/userSlice';
 
-interface ModalFormValues {
+export interface ModalFormValues {
   name: string;
   phone: string;
   month: string;
@@ -15,7 +17,11 @@ interface ModalFormValues {
   year: string;
 }
 
-function ModalForm({changeFormsValue, nextStep}: {changeFormsValue: any, nextStep:any}) {
+interface Props {
+  nextStep:any;
+}
+
+function ModalForm({nextStep}: Props) {
 
   const [inputsValue, setInputsValue] = useState({
     name: '',
@@ -30,6 +36,7 @@ function ModalForm({changeFormsValue, nextStep}: {changeFormsValue: any, nextSte
   const inputMounth: any = useRef(null)
   const inputDay: any = useRef(null)
   const inputYear: any = useRef(null)
+  const dispatch = useAppDispatch()
  
 
   const handleChange = (e:React.InputHTMLAttributes<HTMLInputElement> | any) => {
@@ -39,7 +46,8 @@ function ModalForm({changeFormsValue, nextStep}: {changeFormsValue: any, nextSte
       [e.target.name]: e.target.value
       }
       validate(payload)
-      changeFormsValue(payload)
+      dispatch(addValuesInRegisterUser(payload))
+      //changeFormsValue(payload)
       return payload
     })
     

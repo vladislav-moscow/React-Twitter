@@ -1,27 +1,47 @@
 {
   "posts": [
     {
-      "body": "sdgdfgfdg",
-      "id": 1
+      "body": "11111",
+      "id": 1,
+      "userId": 1
     },
     {
-      "body": "sdgsdgdfgfdg",
-      "id": 2
+      "body": "11111111",
+      "id": 2,
+      "userId": 1
     },
     {
-      "body": "dfgdfgfdgfdg",
-      "id": 3
+      "body": "1111111",
+      "id": 3,
+      "userId": 1
+    },
+    {
+      "body": "22222",
+      "id": 4,
+      "userId": 2
+    },
+    {
+      "body": "2222",
+      "id": 5,
+      "userId": 2
+    },
+    {
+      "body": "2222222222",
+      "id": 6,
+      "userId": 2
     }
   ],
   "users": [
     {
-      "id": 1,
-      "f": "Ланистер",
-      "i": "Тирион",
-      "o": "Тирионович",
+      "name": "Владислав",
+      "phone": "+7 (968) 446-49-59",
+      "month": "Июнь",
+      "day": "6",
+      "year": "1989",
       "login": "admin",
       "password": "admin",
-      "birDay": "00000000"
+      "email": "est.nice.lovely2013@gmail.com",
+      "id": 1
     }
   ],
   "comments": [],

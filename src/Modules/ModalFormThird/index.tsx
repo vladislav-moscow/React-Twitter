@@ -5,25 +5,28 @@ import React from 'react';
 import { pink } from '@mui/material/colors';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
+import {addUser} from '../../store/user/userSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 
 
-interface ModalFormThirdValues {
+export interface ModalFormThirdValues {
   isChecked: boolean;
 }
 interface ModalFormThirdsValues {
-  changeFormsValue: any;
   nextStep: any;
   onClose: any;
 }
 
-function ModalFormThird({changeFormsValue,nextStep, onClose}: ModalFormThirdsValues) {
+function ModalFormThird({nextStep, onClose}: ModalFormThirdsValues) {
 
   const [inputsValue, setInputsValue] = useState<ModalFormThirdValues>({
     isChecked: false,
   })
 
-  const inputChecked: any = useRef(null)
+  const inputChecked: any = useRef(null);
+  const dispatch = useAppDispatch()
 
+  const userInRegister = useAppSelector((state:any) => state.user.userInRegister)
   const handleChange = () => {
     setInputsValue({isChecked: !inputsValue.isChecked})
   }
@@ -33,8 +36,8 @@ function ModalFormThird({changeFormsValue,nextStep, onClose}: ModalFormThirdsVal
 
     //Валидация на заполнены ли поля
     if(!inputsValue.isChecked ) {return}
-
-      changeFormsValue(inputsValue)
+      dispatch(addUser(userInRegister))
+      //changeFormsValue(inputsValue)
       nextStep()
       onClose()
   }

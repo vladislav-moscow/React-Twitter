@@ -2,26 +2,34 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios';
 
 interface UserDTO {
-  f: string;
-  i: string;
-  o: string;
+  name: string;
+  phone: string;
+  mounth: string;
+  day: string;
+  year: string;
   login: string;
   password: string;
-  birDay: string;
+  email: string;
 }
 
-interface UserProc extends UserDTO {}
+ export interface UserProc extends UserDTO {}
 
 interface Data {
   isloading: boolean;
-  user: UserProc
-  
+  user: UserProc;
+  userInRegister: UserProc;  
+}
+
+export interface authData {
+  login:string;
+  password: string;
 }
 
 //state 
 const initialState: Data = {
   isloading: false,
-  user:{} as UserProc
+  user:{} as UserProc,
+  userInRegister: {} as UserProc,
 }
 
 
@@ -34,35 +42,29 @@ export const fetch = createAsyncThunk(
   }
 );
 
-export const post = createAsyncThunk(
-  'user/postUser',
-  async (value: object) => {
-    await axios.post('http://localhost:3001/posts', value);
+export const addUser = createAsyncThunk(
+  'user/addUser',
+  async (value: UserDTO) => {
+    const responce = await axios.post(`http://localhost:3001/users`, value);
+    return responce.data;
   }
 );
 
-export const remove = createAsyncThunk(
-  'user/removeUser',
-  async (id: number) => {
-    await axios.delete(`http://localhost:3001/posts/${id}`)
+export const authUser = createAsyncThunk(
+  'user/authUser',
+  async (value: authData) => {
+    const responce = await axios.get(`http://localhost:3001/users?login=${value.login}&?password=${value.password}`);
+    return responce.data;
   }
 );
-
-/* export const update = createAsyncThunk(
-  'user/updateUser',
-  async (value: CustomPost) => {
-    const payload = {
-      body: value.body
-    }
-    await axios.put(`http://localhost:3001/posts/${value.id}`, payload)
-  }
-); */
 
 export const UserSlice: any = createSlice({
-  name: 'post',
+  name: 'user',
   initialState,
   reducers: {
-    
+    addValuesInRegisterUser: (state, action) => {
+      state.userInRegister = {...state.userInRegister, ...action.payload}
+    },
   },
 
   /*  addCase  вместо then
@@ -77,11 +79,15 @@ export const UserSlice: any = createSlice({
       state.isloading = true
     }).addCase(fetch.rejected, (_state, action) => {
       console.log('Нет данных',action.payload);
+    }).addCase(addUser.fulfilled, (state, action) => {
+      state.user = action.payload
+    }).addCase(authUser.fulfilled, (state, action) => {
+      state.user = action.payload
     })
   },
 })
 
 // Action creators are generated for each case reducer function
-
+export const { addValuesInRegisterUser } = UserSlice.actions
 
 export default UserSlice.reducer

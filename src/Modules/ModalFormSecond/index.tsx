@@ -2,13 +2,14 @@ import './ModalFormSecond.scss';
 import Button from '../../components/Button';
 import { useRef, useState } from 'react';
 import React from 'react';
+import { useAppDispatch } from '../../hooks/hooks';
+import {addValuesInRegisterUser} from '../../store/user/userSlice';
 
-interface ModalFormSecondValues {
-  changeFormsValue: any;
+export interface ModalFormSecondValues {
   nextStep: any;
 }
 
-function ModalFormSecond({ changeFormsValue, nextStep }: ModalFormSecondValues) {
+function ModalFormSecond({ nextStep }: ModalFormSecondValues) {
 
   const [inputsValue, setInputsValue] = useState({
     login: '',
@@ -19,6 +20,7 @@ function ModalFormSecond({ changeFormsValue, nextStep }: ModalFormSecondValues) 
   const inputLogin: any = useRef(null)
   const inputPassword: any = useRef(null)
   const inputEmail: any = useRef(null)
+  const dispatch = useAppDispatch()
 
   const handleChange = (event: any) => {
     setInputsValue(prev => {
@@ -45,7 +47,8 @@ function ModalFormSecond({ changeFormsValue, nextStep }: ModalFormSecondValues) 
     //Валидация на заполнены ли поля
     if (!inputsValue.login) { return }
 
-    changeFormsValue(inputsValue)
+    dispatch(addValuesInRegisterUser(inputsValue))
+    //changeFormsValue(inputsValue)
     nextStep()
   }
 
