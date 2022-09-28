@@ -9,19 +9,12 @@ import { UserProc } from "../../store/user/userSlice";
 
 const Profile = () => {
   const [searchText, setSearchText] = useState<string>('');
-  const select: UserProc = useAppSelector((store: any) => store.user.user);
-  console.log(select);
-  
+  const select: UserProc[] = useAppSelector((store: any) => store.user.user);
   
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchText(event.target.value)
 	}
 
-
-
-  
-  
-	
 
   return(
     <section className="profile">
