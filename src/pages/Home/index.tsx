@@ -2,26 +2,19 @@ import React, { useEffect, useState } from 'react';
 import Button from '../../components/Button';
 import Navigation from '../../Modules/Navigation';
 import './Home.scss';
-import axios from 'axios';
 import Options from '../../components/Options';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Aside from '../../Modules/Aside';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { CustomPost, fetch, post, remove, update } from '../../store/post/postSlice'
+import { CustomPost, fetch, fetchByUser, post, PostStore, remove, update } from '../../store/post/postSlice';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
 import SentimentSatisfiedRoundedIcon from '@mui/icons-material/SentimentSatisfiedRounded';
 import RoomOutlinedIcon from '@mui/icons-material/RoomOutlined';
 import LeaderboardOutlinedIcon from '@mui/icons-material/LeaderboardOutlined';
-
-interface Post {
-	id: number;
-	userId: number;
-	title: string;
-	body: string
-}
+import { UserProc, fetch as fetchUser } from '../../store/user/userSlice';
 
 const options = [
 	'Редактировать',
@@ -30,27 +23,26 @@ const options = [
 
 function Home() {
 	const [searchText, setSearchText] = useState<string>('');
-	const [data, setData] = useState<Post[]>([]);
 	const [textPost, setTextPost] = useState<string>('');
 	const [changeMode, setChangeMode] = useState<boolean>(false);
-	const [loading, setLoading] = useState<boolean>(false);
 	const [currentPost, setCurrentPost] = useState<number>();
-	const dispatch = useAppDispatch();
-	const createPosts: CustomPost[] = useAppSelector((store: any) => store.post.posts)
 
+	const dispatch = useAppDispatch();
+	const postData: PostStore = useAppSelector((store: any) => store.post)
+	const user: UserProc = useAppSelector((store: any) => store.user.user)
 
 	const handleClickEdit = (id: number) => {
 		setCurrentPost(id)
 		setChangeMode(true);
 
 		//поиск поста и переносит его текст в инпут
-		createPosts.forEach((post) => {
+		postData.posts.forEach((post) => {
 			if (post.id === id) {
 				setTextPost(post.body)
 			}
 		})
 	};
-
+ 
 	const handleUpdateTwit = () => {
 		const payload = {
 			id: currentPost,
@@ -76,9 +68,13 @@ function Home() {
 	}
 
 	const handleTwit = () => {
-		const payload = {
-			body: textPost
-		}
+		const payload:CustomPost = {
+			body: textPost,
+			userId: user.id
+		} as CustomPost;
+
+		console.log(payload);
+		
 		if (payload.body) {
 			dispatch(post(payload)).then(fetchPosts)
 			setTextPost('')
@@ -89,7 +85,18 @@ function Home() {
 		dispatch(fetch())
 	}
 
+	const fetchPostsId = () => {
+		dispatch(fetchByUser(Number(sessionStorage.getItem('userId'))))
+	}
+
 	useEffect(() => {
+		//setLoading(true)
+		dispatch(fetchUser(Number(sessionStorage.getItem('userId'))))
+		fetchPostsId()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[])
+
+	/* useEffect(() => {
 		setLoading(true)
 		axios.get('https://jsonplaceholder.typicode.com/posts').then((res) => {
 			setData(res.data)
@@ -97,7 +104,7 @@ function Home() {
 			.finally(() => setLoading(false))
 		fetchPosts()
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, []) */
 
 	return (
 		<section className="home">
@@ -125,8 +132,8 @@ function Home() {
 						</div>
 					</div>
 				</section>
-				{loading ? <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CircularProgress /></Box> :
-					createPosts.filter(item => item.body.toLowerCase().includes(searchText.toLowerCase())).map(post => {
+				{postData.isloading ? <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CircularProgress /></Box> :
+					postData.posts.filter(item => item.body.toLowerCase().includes(searchText.toLowerCase())).map(post => {
 						return (
 							<div key={post.id} className='home__posts-wrapper'>
 								<Options onClickEdit={handleClickEdit} options={options} id={post.id} onClickDelete={handleClickDelete} />
@@ -134,15 +141,6 @@ function Home() {
 							</div>
 						)
 					}).reverse()}
-				{data && data.filter(item => item.title.toLowerCase().includes(searchText.toLowerCase()) || item.body.toLowerCase().includes(searchText.toLowerCase())).map(post => {
-					return (
-						<div key={post.id} className='home__posts-wrapper'>
-
-							<h2 className='home__posts-title'>{post.title}</h2>
-							<p className='home__posts-body'>{post.body}</p>
-						</div>
-					)
-				})}
 			</section>
 			<Aside handleChange={handleChange} searchText={searchText} />
 		</section>

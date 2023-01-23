@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios';
 
 interface UserDTO {
+  id: number;
   name: string;
   phone: string;
   mounth: string;
@@ -36,8 +37,8 @@ const initialState: Data = {
 //action  для extraReducers
 export const fetch = createAsyncThunk(
   'user/fetchUser',
-  async (id) => {
-    const responce = await axios.get(`http://localhost:3001/users/${id}`);
+  async (id: number) => {
+    const responce = await axios.get(`http://localhost:3001/users?id=${id}`);
     return responce.data;
   }
 );
@@ -82,7 +83,8 @@ export const UserSlice: any = createSlice({
     }).addCase(addUser.fulfilled, (state, action) => {
       state.user = action.payload
     }).addCase(authUser.fulfilled, (state, action) => {
-      state.user = action.payload
+      const newObj:UserDTO[] = (Array.isArray(action.payload) ? action.payload : [action.payload]) as UserDTO[];
+      state.user = newObj[0]
     })
   },
 })

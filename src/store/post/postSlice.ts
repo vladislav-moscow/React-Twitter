@@ -2,19 +2,21 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios';
 
 
-interface Post {
-  posts: CustomPost[];
+export interface PostStore {
+  posts: CustomPostDTO[];
   isloading: boolean;
 }
 
-export interface CustomPost {
+export interface CustomPost extends CustomPostDTO {}
+
+export interface CustomPostDTO {
 	id: number;
-	idUser: number;
+	userId: number;
 	body: string;
 }
 
 //state 
-const initialState: Post = {
+const initialState: PostStore = {
   posts: [],
   isloading: false
 }
@@ -25,6 +27,14 @@ export const fetch = createAsyncThunk(
   'posts/fetchPosts',
   async () => {
     const responce = await axios.get('http://localhost:3001/posts');
+    return responce.data;
+  }
+);
+
+export const fetchByUser = createAsyncThunk(
+  'posts/fetchPostsByUser',
+  async (id: number) => {
+    const responce = await axios.get(`http://localhost:3001/posts?userId=${id}`);
     return responce.data;
   }
 );
@@ -72,6 +82,11 @@ export const postSlice: any = createSlice({
       state.isloading = true
     }).addCase(fetch.rejected, (_state, action) => {
       console.log('Нет данных',action.payload);
+    }).addCase(fetchByUser.fulfilled, (state, action) => {
+      state.isloading = false
+      state.posts = action.payload;
+    }).addCase(fetchByUser.pending, (state) => {
+      state.isloading = true
     })
   },
 })

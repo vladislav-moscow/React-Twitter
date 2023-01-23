@@ -9,7 +9,7 @@ import { UserProc } from "../../store/user/userSlice";
 
 const Profile = () => {
   const [searchText, setSearchText] = useState<string>('');
-  const select: UserProc[] = useAppSelector((store: any) => store.user.user);
+  const select: UserProc = useAppSelector((store: any) => store.user.user);
   
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchText(event.target.value)
@@ -21,7 +21,7 @@ const Profile = () => {
       <Navigation/>
       <section className="profile-header">
         <div className="profile-header__heading">
-          <h2 className="profile-header__heading-title">{select[0].name}</h2>
+          <h2 className="profile-header__heading-title">{select.name}</h2>
           <h4 className="profile-header__heading-twits"> 0 Твитов</h4>
         </div>
         <div className="profile-header__images-module">

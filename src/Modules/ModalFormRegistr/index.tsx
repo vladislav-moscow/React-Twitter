@@ -2,8 +2,8 @@ import './ModalFormRegistr.scss';
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Button from '../../components/Button';
-import { authData, authUser } from '../../store/user/userSlice';
-import { useAppDispatch } from '../../hooks/hooks';
+import { authData, authUser, UserProc } from '../../store/user/userSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import {isEmpty} from 'lodash'
 
 function ModalFormRegistr() {
@@ -15,9 +15,12 @@ function ModalFormRegistr() {
 
   let navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const user: UserProc = useAppSelector((store: any) => store.user.user)
 
   const validateReg = async() => {
-    return isEmpty((await dispatch(authUser(inputsValue))).payload)
+    await dispatch(authUser(inputsValue))
+    sessionStorage.setItem('userId', `${user.id}`)
+    return isEmpty(user)
   } 
 
   const handleChange = (event:any) => {
